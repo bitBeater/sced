@@ -131,3 +131,4 @@ dist
 next
 examples
 .history
+.local_*
