@@ -48,7 +48,15 @@ error: Uncaught (in promise) Error: "ls | grep .ts" command failed, with exit co
         throw new CommandfailureErr({ cmd: comand, args, exitCode: cmdOut.code });
 ```
 
+### No quoted substrings
+Sced does not currently support quoted substrings within the tagged template literals.
+For now every space is treated as a separator between command and arguments. 
+For example:
+```ts
 
+const content = $s`cat "my file.txt"`; // This will not work as intended
+// It will be parsed in the command 'cat' with two arguments: '"my' and 'file.txt"'
+```
 
 ## Usage
 
@@ -60,7 +68,7 @@ sced is incredibly straightforward to use. To execute a command, simply use the
 #### To String
 
 ```typescript
-import { $s } from "https://deno.land/x/sced@v1.1.6/src/mod.ts";
+import { $s } from "https://deno.land/x/sced@v1.2.0/src/mod.ts";
 
 const files:string = $s`ls`;
 // files == "deno.jsonc  LICENSE  README.md  src"
@@ -69,7 +77,7 @@ const files:string = $s`ls`;
 #### To Stdout
 
 ```typescript
-import { $$ } from "https://deno.land/x/sced@v1.1.6/src/mod.ts";
+import { $$ } from "https://deno.land/x/sced@v1.2.0/src/mod.ts";
 
 const exitCode:number = $$`ls`;
 // will print to stdout:
@@ -79,19 +87,24 @@ const exitCode:number = $$`ls`;
 #### To Uint8Array
 
 ```typescript
-import { $b } from "https://deno.land/x/sced@v1.1.6/src/mod.ts";
+import { $b } from "https://deno.land/x/sced@v1.2.0/src/mod.ts";
 
 const byteArray:Uint8Array = $b`curl https://filesamples.com/samples/image/jpg/sample_640%C3%97426.jpg`;
 
 ```
+#### To Deno.CommandOutput
+
+```typescript
+import { _$ } from "https://deno.land/x/sced@v1.2.0/src/mod.ts";
+
+const out:Deno.CommandOutput = _$`echo "Hello, World!"`;
+```
+
+
 ## Troubleshooting
 
 For issues related to sced:
 
 - Ensure Deno has the necessary permissions to execute shell commands `--allow-run`.
-- Verify that commands  are correctly formatted as tagged template literals.
-
-## Contributors
-
-Contributions to the sced project are welcome. Please refer to the project's
-GitHub repository for guidelines on how to contribute.
+- Verify that commands are correctly formatted as tagged template literals.
+- Check the above limitations section for any potential issues.
