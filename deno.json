@@ -1,5 +1,5 @@
 {
-  "version": "1.1.6",
+  "version": "1.2.0",
 
   "fmt": {
     "lineWidth": 300,
@@ -16,5 +16,11 @@
   "compilerOptions": {
     "strictNullChecks": false
   },
-  "exclude": [".history"]
+  "exclude": [".history"],
+  "imports": {
+    "@bitbeater/ecma-utils": "npm:@bitbeater/ecma-utils@^2.7.0",
+    "@util/": "./src/utils/",
+    "@type/": "./src/types/",
+    "@error/": "./src/errors/"
+  }
 }
