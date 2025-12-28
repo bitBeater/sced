@@ -1,7 +1,7 @@
-import { TemplateExpression } from './types/template.ts';
-import { exeToBytes, exeToStdOut, exeToString } from './utils/command_execution.ts';
-import { parseCommand } from './utils/command_parser.ts';
-import { parseTemplate } from './utils/template.ts';
+import { TemplateExpression } from '@type/template.ts';
+import { exeToBytes, exeToStdOut, exeToString, runCommand } from '@util/command_execution.ts';
+import { templateToCommand } from '@util/command_parser.ts';
+
 
 /**
  * execute a command and return the stdout as a string.
@@ -9,9 +9,8 @@ import { parseTemplate } from './utils/template.ts';
  * @returns
  */
 export function $s(command: TemplateStringsArray, ...expressions: TemplateExpression[]): string {
-  const strCommand = parseTemplate(command, ...expressions);
-  const { cmd, args } = parseCommand(strCommand);
-  return exeToString(cmd, ...args);
+  const cmd = templateToCommand(command, expressions);
+  return exeToString(cmd);
 }
 
 /**
@@ -21,10 +20,8 @@ export function $s(command: TemplateStringsArray, ...expressions: TemplateExpres
  * @returns
  */
 export function $$(command: TemplateStringsArray, ...expressions: TemplateExpression[]): number {
-  const strCommand = parseTemplate(command, ...expressions);
-  const { cmd, args } = parseCommand(strCommand);
-
-  return exeToStdOut(cmd, ...args);
+  const cmd = templateToCommand(command, expressions);
+  return exeToStdOut(cmd);
 }
 
 /**
@@ -33,8 +30,17 @@ export function $$(command: TemplateStringsArray, ...expressions: TemplateExpres
  * @returns
  */
 export function $b(command: TemplateStringsArray, ...expressions: TemplateExpression[]): Uint8Array {
-  const strCommand = parseTemplate(command, ...expressions);
-  const { cmd, args } = parseCommand(strCommand);
+  const cmd = templateToCommand(command, expressions);
+  return exeToBytes(cmd);
+}
 
-  return exeToBytes(cmd, ...args);
+/**
+ * execute a command and return the Deno.CommandOutput.
+ * @param command
+ * @param expressions
+ * @returns 
+ */
+export function _$(command: TemplateStringsArray, ...expressions: TemplateExpression[]): Deno.CommandOutput {
+  const cmd = templateToCommand(command, expressions);
+  return runCommand(cmd);
 }

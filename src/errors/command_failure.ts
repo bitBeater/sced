@@ -1,27 +1,16 @@
-export interface Commandfailure {
-  cmd: string;
-  args?: string[];
-  exitCode: number;
-  stdErr?: string;
-}
+import { Command } from '@type/command.ts';
+
 
 export class CommandfailureErr extends Error {
-  cmd: string;
-  args: string[];
-  exitCode: number;
-  StdErr: string;
 
-  constructor(commandfailure: Commandfailure) {
-    let message = `"${commandfailure.cmd} ${commandfailure.args?.join(' ')}" command failed, with exit code ${commandfailure.exitCode}`;
+  constructor(readonly failedCommand: Command, readonly result: Deno.CommandOutput) {
+    let message = `"${failedCommand.cmd} ${failedCommand.args?.join(' ')}" command failed, with exit code ${result?.code}`;
 
-    if (commandfailure.stdErr) {
-      message += '\nstdErr:\t' + commandfailure.stdErr;
+    if (result.stderr && result.stderr.length) {
+      message += '\nstdErr:\t' + new TextDecoder().decode(result.stderr);
     }
 
     super(message);
-    this.cmd = commandfailure.cmd;
-    this.args = commandfailure.args || [];
-    this.exitCode = commandfailure.exitCode;
-    this.StdErr = commandfailure.stdErr || '';
   }
+
 }

@@ -7,12 +7,14 @@ import { exeToBytes, exeToStdOut, exeToString } from '../../src/utils/command_ex
 
 
 
+
 describe('Command Execution', () => {
 
     describe('exeToBytes', () => {
         it('should return the output of a command as a byte array', () => {
             const printVal = 'hello';
-            const output = exeToBytes('printf', printVal);
+
+            const output = exeToBytes({ cmd: 'printf', args: [printVal] });
             const expected = new TextEncoder().encode(printVal);
             assertEquals(output, expected);
         });
@@ -22,18 +24,17 @@ describe('Command Execution', () => {
     describe('exeToString', () => {
         it('should return the output of a command as a string', () => {
             const printVal = 'hello';
-            const output = exeToString('printf', 'hello');
+            const output = exeToString({ cmd: 'printf', args: [printVal] });
             assertEquals(output, printVal);
         });
     });
 
     describe('exeToStdOut', () => {
         it(`should pipe the comand's stdout to deno's stdout`, () => {
-            const exitCode = exeToStdOut('echo', 'hello');
+            const exitCode = exeToStdOut({ cmd: 'printf', args: ['hello'] });
             assertEquals(exitCode, 0);
         });
     });
-
 });
 
 

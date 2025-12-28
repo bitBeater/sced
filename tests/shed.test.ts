@@ -1,7 +1,8 @@
 
-import { assertEquals } from 'https://deno.land/std@0.223.0/assert/assert_equals.ts';
+import { assertEquals, assert } from 'https://deno.land/std@0.223.0/assert/mod.ts';
 import { describe, it } from 'https://deno.land/std@0.223.0/testing/bdd.ts';
-import { $$, $b, $s } from '../src/sced.ts';
+import { $$, $b, $s, _$ } from '../src/sced.ts';
+
 
 
 
@@ -55,6 +56,25 @@ describe('Command Execution', () => {
         });
     });
 
+    describe('exe to Deno.Command', () => {
+        it(`should return a Deno.Command`, () => {
+            const commandOutput = _$`echo hello`;
+            assert(commandOutput);
+            assert(commandOutput.stdout instanceof Uint8Array);
+        });
+
+        it(`should have the correct stdout`, () => {
+            const value = 'hello';
+            const commandOutput = _$`echo ${value}`;
+            const outputString = new TextDecoder().decode(commandOutput.stdout);
+            assertEquals(outputString.trim(), value);
+        });
+
+        it(`should have the correct exit code (0)`, () => {
+            const commandOutput = _$`echo`;
+            assertEquals(commandOutput.code, 0);
+        });
+    });
 });
 
 
