@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A
 
-import * as denoConf from '../deno.json' with { type: 'json' };
+import * as denoConf from '../deno.jsonc' with { type: 'json' };
 import { $$ } from '../src/sced.ts';
 
 const version = denoConf.default.version;

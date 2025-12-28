@@ -2,11 +2,11 @@
 import {
     Confirm,
     Input,
-} from 'https://deno.land/x/cliffy@v1.0.0-rc.4/prompt/mod.ts';
+} from 'cliffy/prompt/mod.ts';
 import { $$ } from '../src/sced.ts';
 
-import chalk from 'npm:chalk';
-import { simpleGit, SimpleGit } from 'npm:simple-git';
+import chalk from 'chalk';
+import { simpleGit, SimpleGit } from 'simple-git';
 
 
 const git: SimpleGit = simpleGit();

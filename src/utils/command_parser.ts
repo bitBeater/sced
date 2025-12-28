@@ -8,10 +8,10 @@ import { TemplateExpression } from '@type/template.ts';
  * example:
  * ```ts
  * const command = parseComand('deno run -A ./src/sced.ts -h');
- * /** 
+ * /**
  *  command =  {
- *     cmd: 'deno', 
- *     args: ['run', '-A', './src/sced.ts', '-h'] 
+ *     cmd: 'deno',
+ *     args: ['run', '-A', './src/sced.ts', '-h']
  * }
  * ```
  * @param command
@@ -28,25 +28,24 @@ export function stringToCommand(command: string): Command {
   return { cmd, args: comandParts };
 }
 
-
 /**
  * convert a template string to a Deno.Command.
  * example:
  * ```ts
  * const cmd = templateToCommand`deno run -A ./src/sced.ts -h`;
- * /** 
+ * /**
  *  command =  {
- *     cmd: 'deno', 
- *     args: ['run', '-A', './src/sced.ts', '-h'] 
+ *     cmd: 'deno',
+ *     args: ['run', '-A', './src/sced.ts', '-h']
  * }
- * @param templateParts 
- * @param templateSubsts 
- * @returns 
+ * @param templateParts
+ * @param templateSubsts
+ * @returns
  */
 
 export function templateToCommand(templateParts: TemplateStringsArray, templateSubsts: TemplateExpression[]): Command {
   const strCommand = templateToString(templateParts, ...templateSubsts);
-  const command = stringToCommand(strCommand)
+  const command = stringToCommand(strCommand);
 
   return command;
 }

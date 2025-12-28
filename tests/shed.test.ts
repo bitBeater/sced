@@ -1,6 +1,6 @@
 
-import { assertEquals, assert } from 'https://deno.land/std@0.223.0/assert/mod.ts';
-import { describe, it } from 'https://deno.land/std@0.223.0/testing/bdd.ts';
+import { assertEquals, assert } from '@std/assert/mod.ts';
+import { describe, it } from '@std/testing/bdd.ts';
 import { $$, $b, $s, _$ } from '../src/sced.ts';
 
 

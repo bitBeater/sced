@@ -1,5 +1,5 @@
-import { assertEquals } from 'https://deno.land/std@0.223.0/assert/assert_equals.ts';
-import { describe, it } from 'https://deno.land/std@0.223.0/testing/bdd.ts';
+import { assertEquals } from '@std/assert/assert_equals.ts';
+import { describe, it } from '@std/testing/bdd.ts';
 import { exeToBytes, exeToStdOut, exeToString } from '../../src/utils/command_execution.ts';
 
 

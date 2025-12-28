@@ -2,7 +2,6 @@ import { TemplateExpression } from '@type/template.ts';
 import { exeToBytes, exeToStdOut, exeToString, runCommand } from '@util/command_execution.ts';
 import { templateToCommand } from '@util/command_parser.ts';
 
-
 /**
  * execute a command and return the stdout as a string.
  * @param command
@@ -38,7 +37,7 @@ export function $b(command: TemplateStringsArray, ...expressions: TemplateExpres
  * execute a command and return the Deno.CommandOutput.
  * @param command
  * @param expressions
- * @returns 
+ * @returns
  */
 export function _$(command: TemplateStringsArray, ...expressions: TemplateExpression[]): Deno.CommandOutput {
   const cmd = templateToCommand(command, expressions);
